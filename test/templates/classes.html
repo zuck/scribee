@@ -1,0 +1,15 @@
+% if entity.children(entity.__class__.Types.Class):
+<h2><a name="${entity.uid()}_classes">Member classes</a></h2>
+<table class="classes">
+% for member in entity.children(entity.__class__.Types.Class):
+    <tr class="${member.type}">
+        <td class="entity_type">${member.type}</td>
+        <td class="name"><a href="${member.uid()}.html">${member.name}</a></td>
+        % if hasattr(member, "access_rights"):
+        <td class="access_rights">[${member.access_rights}]</td>
+        % endif
+        <td class="brief">${member.brief}</td>
+    </tr>
+% endfor
+</table>
+% endif

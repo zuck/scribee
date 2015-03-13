@@ -1,0 +1,41 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+"""This file is part of the Scribee project.
+"""
+
+__author__ = 'Emanuele Bertoldi <emanuele.bertoldi@gmail.com>'
+__copyright__ = 'Copyright (c) 2011 Emanuele Bertoldi'
+__version__ = '0.0.1'
+
+import inspectors
+import filters
+import renderers
+
+VERBOSE = False
+
+OUTPUT_DIR = 'output'
+
+INSPECTORS = {
+    '.hpp': inspectors.cpp,
+    '.h': inspectors.cpp,
+    '.cpp': inspectors.cpp,
+    '.c': inspectors.cpp,
+    '.py': inspectors.python
+}
+
+FILTERS = {
+    '.hpp': [filters.cpp, filters.doxygen],
+    '.h': [filters.cpp, filters.doxygen],
+    '.cpp': [filters.cpp, filters.doxygen],
+    '.c': [filters.cpp, filters.doxygen],
+    '.py': [filters.python, filters.doxygen],
+}
+
+RENDERERS = {
+    'html': renderers.html
+}
+
+HTML_ENTITY_TEMPLATE = "test/templates/entity.html"
+HTML_ENTITIES_TEMPLATE = "test/templates/entities.html"
+HTML_INDEX_TEMPLATE = "test/templates/index.html"
+HTML_STATIC_ROOT = "test/templates/static"

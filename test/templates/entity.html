@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+	<title>${entity.name}</title>
+	<link href="style.css" rel="stylesheet" type="text/css" media="screen"/>
+</head>
+
+<body>
+	<div class="wrapper">
+	    <%include file="header.html"/>
+		<div id="contents">
+            <div id="breadcrumbs">
+                <a href="entities.html">API</a> &raquo;
+                % for a in entity.ancestors():
+                <a href="${a.uid()}.html">${a.name}</a> &raquo;
+                % endfor
+                <span>${entity.name}</span>
+            </div>
+            <div class="${entity.type}">
+			    <h1>${entity.name} <span class="entity_type">[${entity.type}]</span></h1>
+                % if entity.type == "namespace":
+                <%include file="namespace.html"/>
+			    % elif entity.type == "class":
+			    <%include file="class.html"/>
+			    % elif entity.type == "func":
+			    <%include file="func.html"/>
+			    % endif
+			    <p class="source">Generated from
+                % for s in entity.sources[:-1]:
+                    <strong>${s}</strong>,
+                % endfor
+                <strong>${entity.sources[-1]}</strong>.
+                </p>
+            </div>
+		</div>
+	    <%include file="footer.html"/>
+	</div>
+</body>
+
+</html>
+

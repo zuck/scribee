@@ -1,0 +1,35 @@
+% if entity.brief:
+<p class="brief">${entity.brief} <a class="more" href="#${entity.uid()}_details">More...</a></p>
+% endif
+
+<h2><a name="${entity.uid()}_details">Detailed description</a></h2>
+<div class="signature">
+    <strong>
+        % if hasattr(entity, "return_type"):
+        <span class="return_type">${entity.return_type}</span>
+        % endif
+        <span class="name">${entity.name}</span>
+        (
+        <span class="arguments">
+        % if hasattr(entity, "arguments"):
+        % for i, argument in enumerate(entity.arguments):
+            % if i > 0:
+            ,
+            % endif
+            % if hasattr(argument, "var_type"):
+            ${argument.var_type} ${argument.name}
+            % else:
+            ${argument.name}
+            % endif
+            % if argument.value:
+            = ${argument.value}
+            % endif
+        % endfor
+        % endif
+        </span>
+        )
+    </strong>
+</div>
+<p class="details">
+    ${entity.details}
+</p>

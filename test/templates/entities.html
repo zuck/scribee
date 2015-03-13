@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+	<title>API Reference</title>
+	<link href="style.css" rel="stylesheet" type="text/css" media="screen"/>
+</head>
+
+<body>
+	<div class="wrapper">
+	    <%include file="header.html"/>
+		<div id="contents">
+			<h1>API Reference</h1>
+		    <table>
+	        % for entity in entities:
+            % if not entity.parent:
+	            <tr>
+                    <td class="entity_type">${entity.type}</td>
+		            <td class="name"><a href="${entity.uid()}.html">${entity.name}</a></td>
+	                <td class="brief">${entity.brief}</td>
+                </tr>
+            % endif
+            % endfor
+		    </table>
+		</div>
+	    <%include file="footer.html"/>
+	</div>
+</body>
+
+</html>
+

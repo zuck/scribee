@@ -1,0 +1,71 @@
+% if entity.brief:
+<p class="brief">${entity.brief} <a class="more" href="#${entity.uid()}_details">More...</a></p>
+% endif
+
+% if entity.children(entity.__class__.Types.Namespace):
+<h2><a name="${entity.uid()}_namespaces">Member namespaces</a></h2>
+<table class="namespaces">
+% for member in entity.children(entity.__class__.Types.Namespace):
+    <tr class="${member.type}">
+        <td class="entity_type">${member.type}</td>
+        <td class="name"><a href="${member.uid()}.html">${member.name}</a></td>
+        <td class="brief">${member.brief}</td>
+    </tr>
+% endfor
+</table>
+% endif
+
+<%include file="classes.html"/>
+<%include file="functions.html"/>
+<%include file="variables.html"/>
+
+% if entity.details:
+<h2><a name="${entity.uid()}_details">Detailed description</a></h2>
+<p class="details">
+    ${entity.details}
+</p>
+% endif
+
+% if hasattr(entity, "functions") and entity.functions:
+<h2><a name="${entity.uid()}_documentation">Member function documentation</a></h2>
+% for member in entity.functions:
+% if member.type == "func" and member.parent == entity:
+<a name="${member.uid()}"></a>
+<div class="item">
+    <div class="signature">
+        <strong>
+            % if hasattr(member, "return_type"):
+            <span class="return_type">${member.return_type}</span>
+            % endif
+            <span class="name">${member.name}</span>
+            (
+            % if hasattr(member, "arguments"):
+            <span class="arguments">
+            % for i, argument in enumerate(member.arguments):
+                % if i > 0:
+                ,
+                % endif
+                % if hasattr(argument, "var_type"):
+                ${argument.var_type} ${argument.name}
+                % else:
+                ${argument.name}
+                % endif
+                % if argument.value:
+                = ${argument.value}
+                % endif
+            % endfor
+            </span>
+            % endif
+            )
+            % if hasattr(member, "access_rights"):
+            <span class="access_rights">[${member.access_rights}]</span>
+            % endif
+        </strong>
+    </div>
+    <div class="details">
+        <p>${member.details}</p>
+    </div>
+</div>
+% endif
+% endfor
+% endif

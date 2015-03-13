@@ -1,0 +1,40 @@
+% if entity.children(entity.__class__.Types.Function):
+<h2><a name="${entity.uid()}_functions">Member functions</a></h2>
+<table>
+% for member in entity.children(entity.__class__.Types.Function):
+    <tr class="${member.type}">
+        % if hasattr(member, "return_type"):
+        <td class="entity_type">${member.return_type}</td>
+        % endif
+        <td class="name">
+            <a href="#${member.uid()}"><span>${member.name}</span></a>
+            (
+            % if hasattr(member, "arguments"):
+            <span class="arguments">
+            % for i, argument in enumerate(member.arguments):
+                % if i > 0:
+                ,
+                % endif
+                % if hasattr(argument, "var_type"):
+                ${argument.var_type} ${argument.name}
+                % else:
+                ${argument.name}
+                % endif
+                % if argument.value:
+                = ${argument.value}
+                % endif
+            % endfor
+            </span>
+            % endif
+            )
+        </td>
+        % if hasattr(member, "access_rights"):
+        <td class="access_rights">
+        [${member.access_rights}]
+        </td>
+        % endif
+        <td class="brief">${member.brief}</td>
+    </tr>
+% endfor
+</table>
+% endif
